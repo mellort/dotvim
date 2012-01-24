@@ -34,6 +34,7 @@ Bundle 'vim-scripts/L9'
 " UI improvements
 Bundle 'wycats/nerdtree'
 Bundle 'majutsushi/tagbar'
+" Bundle 'int3/vim-taglist-plus'
 Bundle 'dickeytk/status.vim'
 
 " Utilities
@@ -68,7 +69,7 @@ Bundle 'vim-scripts/ZoomWin'
 " Bundle 'mutewinter/LustyJuggler'
 " also use 'mpage' but it doesnt have a repo,
 " included manually
-set rtp+=~/.vim/bundle/mpage/*
+set rtp+=~/.vim/bundle/mpage/
 
 " Colors
 Bundle 'altercation/vim-colors-solarized'
