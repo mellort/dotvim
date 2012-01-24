@@ -36,9 +36,13 @@ vundle :
 	git submodule init && git submodule update
 
 # vim bundles -----------------------------------------------------------------
-bundles :
+bundles : remove_unused_plugins 
 	@echo "Fetching all bundles"
 	vim +BundleInstall +qall
+
+remove_unused_plugins :
+	@echo "Removing unused plugins"
+	python scripts/remove_old_plugins.py
 
 # install ---------------------------------------------------------------------
 
@@ -68,8 +72,5 @@ gitignore_update :
 		&& echo ".backup" >> .gitignore \
 		&& echo ".undo" >> .gitignore
 
-# remove old bundles  ----------------------------------------------------------
-remove_unused_plugins :
-	python scripts/remove_old_plugins.py
 	
 
