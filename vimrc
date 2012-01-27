@@ -40,11 +40,9 @@ Bundle 'dickeytk/status.vim'
 " Utilities
 Bundle 'mileszs/ack.vim'
 Bundle 'tsaleh/vim-align'
-" Bundle 'wincent/Command-T'
 Bundle 'vim-scripts/FuzzyFinder'
 Bundle 'kien/ctrlp.vim'
-" don't use this
-" Bundle 'Lokaltog/vim-easymotion'
+Bundle 'chrisbra/NrrwRgn'
 
 " Manipulation
 Bundle 'michaeljsmith/vim-indent-object'
@@ -370,3 +368,21 @@ endfunction
 
 nnoremap <Leader>r :exec ToggleCenterInScreen(100)<CR>
 nnoremap <Leader>f :call system("xte 'key F11'")<CR>
+
+" function to toggle font scaling
+let g:font_scaled = 0
+let g:font_small = 12
+let g:font_large = 20
+
+function! ToggleFontScale()
+  if g:font_scaled == 0
+    set gfn=Ubuntu\ Mono\ 20
+    let g:font_scaled = 1
+  else
+    set gfn=Ubuntu\ Mono\ 12
+    let g:font_scaled = 0
+  endif
+endfunction
+
+nnoremap <Leader>fz :call ToggleFontScale()<CR>
+
