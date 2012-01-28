@@ -107,6 +107,9 @@ Bundle 'velocity.vim'
 " Lisp
 " Bundle 'vim-scripts/slimv.vim'
 
+" Ruby
+Bundle 'vim-ruby/vim-ruby'
+
 " -----------------------------------------------------------------------------
 " Plugin Setup / Shortcuts / Maps
 " -----------------------------------------------------------------------------
@@ -180,7 +183,6 @@ set smartcase                            " ignore case if search pattern is all 
 set smarttab                             " insert tabs on the start of a line according to
                                          " shiftwidth, not tabstop
 set scrolloff=4                          " keep 4 lines off the edges of the screen when scrolling
-set virtualedit=all                      " allow the cursor to go in to "invalid" places
 set hlsearch                             " highlight search terms
 set incsearch                            " show search matches as you type
 set gdefault                             " search/replace "globally" (on a line) by default
