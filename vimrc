@@ -117,6 +117,9 @@ Bundle 'vim-ruby/vim-ruby'
 " python-mode
 " required
 let g:pymode_syntax = 1
+" remote breakpoint shortcut
+let g:pymode_breakpoint = 0
+
 
 " Easy access to Align
 nnoremap <Leader>= :Align 
