@@ -91,6 +91,8 @@ Bundle 'scrooloose/syntastic'
 " Bundle 'fs111/pydoc.vim'
 Bundle 'klen/python-mode'
 " Bundle 'nvie/vim-pep8'
+Bundle 'lambdalisue/nose.vim'
+Bundle 'reinh/vim-makegreen'
 
 " Java
 " see http://www.vim.org/scripts/script.php?script_id=1785
@@ -109,6 +111,9 @@ Bundle 'velocity.vim'
 
 " Ruby
 Bundle 'vim-ruby/vim-ruby'
+
+" Coffeescript
+Bundle 'kchmck/vim-coffee-script'
 
 " -----------------------------------------------------------------------------
 " Plugin Setup / Shortcuts / Maps
@@ -274,6 +279,8 @@ endif
 
 " reload vimrc
 nnoremap <Leader>sv :source $MYVIMRC<CR>
+nnoremap <Leader>bi :BundleInstall<CR>
+nnoremap <Leader>ev :edit ~/dotvim/vimrc<CR>
 
 " close other buffers
 nnoremap <Leader>o :on<CR>
