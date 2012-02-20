@@ -91,7 +91,8 @@ Bundle 'scrooloose/syntastic'
 " Bundle 'fs111/pydoc.vim'
 Bundle 'klen/python-mode'
 " Bundle 'nvie/vim-pep8'
-Bundle 'lambdalisue/nose.vim'
+" Bundle 'lambdalisue/nose.vim'
+Bundle 'mellort/nose.vim'
 Bundle 'reinh/vim-makegreen'
 
 " Java
@@ -112,6 +113,8 @@ Bundle 'velocity.vim'
 " Ruby
 Bundle 'vim-ruby/vim-ruby'
 
+" Key for set/unset breakpoint
+let g:pymode_breakpoint_key = '<leader>b'
 " Coffeescript
 Bundle 'kchmck/vim-coffee-script'
 
@@ -123,8 +126,13 @@ Bundle 'kchmck/vim-coffee-script'
 " required
 let g:pymode_syntax = 1
 " remote breakpoint shortcut
-let g:pymode_breakpoint = 0
+let g:pymode_breakpoint = 1
+" Key for set/unset breakpoint
+let g:pymode_breakpoint_key = '<Leader>pb'
 
+" makegreen
+nnoremap <Leader>t :call MakeGreen('%')<CR>
+nnoremap <Leader>at :call MakeGreen('.')<CR>
 
 " Easy access to Align
 nnoremap <Leader>= :Align 
@@ -221,7 +229,7 @@ set wildignore=*.swp,*.bak,*.pyc,*.class
 set title                                " change the terminal's title
 set novisualbell                         " don't blink
 set noerrorbells                         " don't beep
-set showcmd                              " show (partial) command in the last line of the screen
+" set showcmd                              " show (partial) command in the last line of the screen
                                          " this also shows visual selection info
 set nomodeline                           " disable mode lines (security measure)
 set cursorline                           " underline the current line, for quick orientation
@@ -323,9 +331,9 @@ nnoremap <Leader>j :lne<CR>
 nnoremap <Leader>k :lpre<CR>
 
 " navigate tabs
-nnoremap <Leader>tn :tabnext<CR>
-nnoremap <Leader>tp :tabpre<CR>
-nnoremap <Leader>tc :tabnew<CR>
+nnoremap <Leader>tk :tabnext<CR>
+nnoremap <Leader>tj :tabpre<CR>
+nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>td :tabclose<CR>
 
 " -----------------------------------------------------------------------------
@@ -339,6 +347,9 @@ autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 " -----------------------------------------------------------------------------
 " Language specific settings
 " -----------------------------------------------------------------------------
+
+" python set compiler
+autocmd FileType python compiler nose
 
 " 2 spaces for tab in vim script
 autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2
