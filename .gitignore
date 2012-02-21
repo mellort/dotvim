@@ -27,6 +27,7 @@ bundle/vim-eddie/
 bundle/vim-fugitive/
 bundle/vim-indent-guides/
 bundle/vim-indent-object/
+bundle/vim-javascript/
 bundle/vim-pep8/
 bundle/vim-pyte/
 bundle/vim-repeat/

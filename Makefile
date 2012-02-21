@@ -36,7 +36,7 @@ vundle :
 	git submodule init && git submodule update
 
 # vim bundles -----------------------------------------------------------------
-bundles : remove_unused_plugins 
+bundles : remove_unused_plugins gitignore
 	@echo "Fetching all bundles"
 	vim +BundleInstall +qall
 
