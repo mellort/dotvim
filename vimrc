@@ -40,11 +40,9 @@ Bundle 'dickeytk/status.vim'
 " Utilities
 Bundle 'mileszs/ack.vim'
 Bundle 'tsaleh/vim-align'
-" Bundle 'wincent/Command-T'
 Bundle 'vim-scripts/FuzzyFinder'
 Bundle 'kien/ctrlp.vim'
-" don't use this
-" Bundle 'Lokaltog/vim-easymotion'
+Bundle 'chrisbra/NrrwRgn'
 
 " Manipulation
 Bundle 'michaeljsmith/vim-indent-object'
@@ -93,6 +91,9 @@ Bundle 'scrooloose/syntastic'
 " Bundle 'fs111/pydoc.vim'
 Bundle 'klen/python-mode'
 " Bundle 'nvie/vim-pep8'
+" Bundle 'lambdalisue/nose.vim'
+Bundle 'mellort/nose.vim'
+Bundle 'reinh/vim-makegreen'
 
 " Java
 " see http://www.vim.org/scripts/script.php?script_id=1785
@@ -111,6 +112,13 @@ Bundle 'velocity.vim'
 
 " Javascript
 Bundle 'pangloss/vim-javascript'
+" Ruby
+Bundle 'vim-ruby/vim-ruby'
+
+" Key for set/unset breakpoint
+let g:pymode_breakpoint_key = '<leader>b'
+" Coffeescript
+Bundle 'kchmck/vim-coffee-script'
 
 " -----------------------------------------------------------------------------
 " Plugin Setup / Shortcuts / Maps
@@ -119,6 +127,14 @@ Bundle 'pangloss/vim-javascript'
 " python-mode
 " required
 let g:pymode_syntax = 1
+" remote breakpoint shortcut
+let g:pymode_breakpoint = 1
+" Key for set/unset breakpoint
+let g:pymode_breakpoint_key = '<Leader>pb'
+
+" makegreen
+nnoremap <Leader>t :call MakeGreen('%')<CR>
+nnoremap <Leader>at :call MakeGreen('.')<CR>
 
 " Easy access to Align
 nnoremap <Leader>= :Align 
@@ -216,7 +232,7 @@ set wildignore=*.swp,*.bak,*.pyc,*.class
 set title                                " change the terminal's title
 set novisualbell                         " don't blink
 set noerrorbells                         " don't beep
-set showcmd                              " show (partial) command in the last line of the screen
+" set showcmd                              " show (partial) command in the last line of the screen
                                          " this also shows visual selection info
 set nomodeline                           " disable mode lines (security measure)
 set cursorline                           " underline the current line, for quick orientation
@@ -274,6 +290,8 @@ endif
 
 " reload vimrc
 nnoremap <Leader>sv :source $MYVIMRC<CR>
+nnoremap <Leader>bi :BundleInstall<CR>
+nnoremap <Leader>ev :edit ~/dotvim/vimrc<CR>
 
 " close other buffers
 nnoremap <Leader>o :on<CR>
@@ -316,9 +334,9 @@ nnoremap <Leader>j :lne<CR>
 nnoremap <Leader>k :lpre<CR>
 
 " navigate tabs
-nnoremap <Leader>tn :tabnext<CR>
-nnoremap <Leader>tp :tabpre<CR>
-nnoremap <Leader>tc :tabnew<CR>
+nnoremap <Leader>tk :tabnext<CR>
+nnoremap <Leader>tj :tabpre<CR>
+nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>td :tabclose<CR>
 
 " -----------------------------------------------------------------------------
@@ -334,6 +352,9 @@ autocmd Filetype javascript set omnifunc=javascriptcomplete#CompleteJS
 " -----------------------------------------------------------------------------
 " Language specific settings
 " -----------------------------------------------------------------------------
+
+" python set compiler
+autocmd FileType python compiler nose
 
 " 2 spaces for tab in vim script
 autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2
@@ -378,3 +399,21 @@ endfunction
 
 nnoremap <Leader>r :exec ToggleCenterInScreen(100)<CR>
 nnoremap <Leader>f :call system("xte 'key F11'")<CR>
+
+" function to toggle font scaling
+let g:font_scaled = 0
+let g:font_small = 12
+let g:font_large = 20
+
+function! ToggleFontScale()
+  if g:font_scaled == 0
+    set gfn=Ubuntu\ Mono\ 20
+    let g:font_scaled = 1
+  else
+    set gfn=Ubuntu\ Mono\ 12
+    let g:font_scaled = 0
+  endif
+endfunction
+
+nnoremap <Leader>fz :call ToggleFontScale()<CR>
+

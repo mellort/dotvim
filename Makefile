@@ -72,5 +72,5 @@ gitignore_update :
 		&& echo ".backup" >> .gitignore \
 		&& echo ".undo" >> .gitignore
 
-	
-
+.PHONY : all deps ack ctags xautomation dirs vundle bundles remove_unused_plugins \ 
+	install backup gitignore gitignore_update 
