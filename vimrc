@@ -109,6 +109,9 @@ Bundle 'velocity.vim'
 " Lisp
 " Bundle 'vim-scripts/slimv.vim'
 
+" Javascript
+Bundle 'pangloss/vim-javascript'
+
 " -----------------------------------------------------------------------------
 " Plugin Setup / Shortcuts / Maps
 " -----------------------------------------------------------------------------
@@ -182,7 +185,6 @@ set smartcase                            " ignore case if search pattern is all 
 set smarttab                             " insert tabs on the start of a line according to
                                          " shiftwidth, not tabstop
 set scrolloff=4                          " keep 4 lines off the edges of the screen when scrolling
-set virtualedit=all                      " allow the cursor to go in to "invalid" places
 set hlsearch                             " highlight search terms
 set incsearch                            " show search matches as you type
 set gdefault                             " search/replace "globally" (on a line) by default
@@ -194,6 +196,7 @@ set fileformats=                         " unix,dos,mac
 
 set termencoding=utf-8
 set encoding=utf-8
+set virtualedit=onemore
 
 set history=1000                         " remember more commands and search history
 set undolevels=1000                      " use many muchos levels of undo
@@ -326,6 +329,8 @@ nnoremap <Leader>td :tabclose<CR>
 " Could also use CompleteParamsInfo
 autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 
+autocmd Filetype javascript set omnifunc=javascriptcomplete#CompleteJS
+
 " -----------------------------------------------------------------------------
 " Language specific settings
 " -----------------------------------------------------------------------------
@@ -335,6 +340,9 @@ autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " 2 spaces for tab in html
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+
+" 2 spaces for tab in js
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " Set velocity syntax (redundant but necessary)
 autocmd BufRead,BufNewFile *.vm  setfiletype velocity
