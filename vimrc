@@ -93,7 +93,7 @@ Bundle 'klen/python-mode'
 " Bundle 'nvie/vim-pep8'
 " Bundle 'lambdalisue/nose.vim'
 Bundle 'mellort/nose.vim'
-Bundle 'reinh/vim-makegreen'
+Bundle 'mellort/vim-makegreen'
 
 " Java
 " see http://www.vim.org/scripts/script.php?script_id=1785
@@ -112,6 +112,8 @@ Bundle 'velocity.vim'
 
 " Ruby
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-rake'
+Bundle 'tpope/vim-endwise'
 
 " Key for set/unset breakpoint
 let g:pymode_breakpoint_key = '<leader>b'
@@ -165,8 +167,11 @@ set laststatus=2
 
 " ultisnips                                 
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsListSnippets="<c-tab>"   " doesn't appear to work, replaced with below
+nnoremap <Leader>ul :call UltiSnips_ListSnippets()<CR>
+nnoremap <Leader>ue :call UltiSnipsEdit()<CR>
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " nerd tree toggle
 nnoremap <Leader>nt :NERDTreeToggle<CR>
@@ -290,8 +295,6 @@ nnoremap <Leader>sv :source $MYVIMRC<CR>
 nnoremap <Leader>bi :BundleInstall<CR>
 nnoremap <Leader>ev :edit ~/dotvim/vimrc<CR>
 
-" close other buffers
-nnoremap <Leader>o :on<CR>
 
 " Easy window navigation
 map <C-h> <C-w>h
@@ -316,25 +319,21 @@ nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>w :wq<CR>
 
-" Delete buffer
-nnoremap <Leader>d :bd<CR>
 
 " %% expands to dir of current file
 cnoremap %% %:p:h
 
-" close the quickfix window
-nnoremap <Leader>cl :cclose<CR>
-
-" location list stuff
-nnoremap <Leader>ll :ll<CR>
-nnoremap <Leader>j :lne<CR>
-nnoremap <Leader>k :lpre<CR>
-
-" navigate tabs
+" tabs
 nnoremap <Leader>tk :tabnext<CR>
 nnoremap <Leader>tj :tabpre<CR>
 nnoremap <Leader>tn :tabnew<CR>
 nnoremap <Leader>td :tabclose<CR>
+
+" buffers
+nnoremap <Leader>d :bd<CR>
+nnoremap <Leader>o :on<CR>
+nnoremap <Leader>k :bn<CR>
+nnoremap <Leader>j :bp<CR>
 
 " -----------------------------------------------------------------------------
 " Auto/omni complete settings
@@ -350,6 +349,10 @@ autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 
 " python set compiler
 autocmd FileType python compiler nose
+
+" ruby
+autocmd BufRead,BufNewFile *.rb colors twilight
+autocmd FileType ruby compiler rubyunit
 
 " 2 spaces for tab in vim script
 autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2
@@ -394,12 +397,10 @@ nnoremap <Leader>f :call system("xte 'key F11'")<CR>
 
 " function to toggle font scaling
 let g:font_scaled = 0
-let g:font_small = 12
-let g:font_large = 20
 
 function! ToggleFontScale()
   if g:font_scaled == 0
-    set gfn=Ubuntu\ Mono\ 20
+    set gfn=Ubuntu\ Mono\ 24
     let g:font_scaled = 1
   else
     set gfn=Ubuntu\ Mono\ 12
