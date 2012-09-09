@@ -110,6 +110,8 @@ Bundle 'velocity.vim'
 " Lisp
 " Bundle 'vim-scripts/slimv.vim'
 
+" Javascript
+Bundle 'pangloss/vim-javascript'
 " Ruby
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rake'
@@ -215,6 +217,7 @@ set fileformats=                         " unix,dos,mac
 
 set termencoding=utf-8
 set encoding=utf-8
+set virtualedit=onemore
 
 set history=1000                         " remember more commands and search history
 set undolevels=1000                      " use many muchos levels of undo
@@ -343,6 +346,8 @@ nnoremap <Leader>j :bp<CR>
 " Could also use CompleteParamsInfo
 autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 
+autocmd Filetype javascript set omnifunc=javascriptcomplete#CompleteJS
+
 " -----------------------------------------------------------------------------
 " Language specific settings
 " -----------------------------------------------------------------------------
@@ -359,6 +364,9 @@ autocmd FileType vim setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " 2 spaces for tab in html
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+
+" 2 spaces for tab in js
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " Set velocity syntax (redundant but necessary)
 autocmd BufRead,BufNewFile *.vm  setfiletype velocity

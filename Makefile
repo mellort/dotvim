@@ -36,7 +36,7 @@ vundle :
 	git submodule init && git submodule update
 
 # vim bundles -----------------------------------------------------------------
-bundles : remove_unused_plugins 
+bundles : remove_unused_plugins gitignore
 	@echo "Fetching all bundles"
 	vim +BundleInstall +qall
 
@@ -73,5 +73,4 @@ gitignore_update :
 		&& echo ".undo" >> .gitignore
 
 .PHONY : all deps ack ctags xautomation dirs vundle bundles remove_unused_plugins \ 
-	install backup gitignore gitignore_update all deps ack ctags xautomation dirs \
-	vundle bundles remove_unused_plugins install backup gitignore gitignore_update
+	install backup gitignore gitignore_update 
