@@ -263,7 +263,7 @@ nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
 " save when focus lost
-au FocusLost * :wa
+:au FocusLost * silent! :wa
 
 " Auto resize windows when vim resized
 autocmd VimResized * wincmd =
