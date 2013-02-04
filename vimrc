@@ -35,7 +35,8 @@ Bundle 'vim-scripts/L9'
 Bundle 'wycats/nerdtree'
 Bundle 'majutsushi/tagbar'
 " Bundle 'int3/vim-taglist-plus'
-Bundle 'dickeytk/status.vim'
+" Bundle 'dickeytk/status.vim'
+set statusline=%f
 
 " Utilities
 Bundle 'mileszs/ack.vim'
@@ -86,6 +87,9 @@ Bundle 'scrooloose/syntastic'
 
 """ Language Specific """
 
+" C
+Bundle 'vim-scripts/a.vim'
+
 " Python
 " Bundle 'kevinw/pyflakes-vim'
 " Bundle 'fs111/pydoc.vim'
@@ -126,6 +130,13 @@ Bundle 'kchmck/vim-coffee-script'
 " Plugin Setup / Shortcuts / Maps
 " -----------------------------------------------------------------------------
 
+" ultisnpis
+nnoremap <Leader>se :UltiSnipsEdit<CR>
+
+" a.vim
+nnoremap <Leader>sa :A<CR>
+
+
 " python-mode
 " required
 let g:pymode_syntax = 1
@@ -165,9 +176,10 @@ nnoremap <Leader>b :CtrlPBuffer<CR>
 
 " status line
 " always show status bar
-set laststatus=2
+set laststatus=1
 
 " ultisnips                                 
+let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsListSnippets="<c-tab>"   " doesn't appear to work, replaced with below
 nnoremap <Leader>ul :call UltiSnips_ListSnippets()<CR>
@@ -178,6 +190,9 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 " nerd tree toggle
 nnoremap <Leader>nt :NERDTreeToggle<CR>
 nnoremap <Leader>nf :NERDTreeFind<CR>
+
+" latex hw compile
+" nnoremap <silent> <Leader><Leader> :!pdflatex hw.tex &<CR>
 
 " -----------------------------------------------------------------------------
 " General setup
