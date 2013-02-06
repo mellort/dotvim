@@ -130,8 +130,6 @@ Bundle 'kchmck/vim-coffee-script'
 " Plugin Setup / Shortcuts / Maps
 " -----------------------------------------------------------------------------
 
-" ultisnpis
-nnoremap <Leader>se :UltiSnipsEdit<CR>
 
 " a.vim
 nnoremap <Leader>sa :A<CR>
@@ -183,9 +181,16 @@ let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsListSnippets="<c-tab>"   " doesn't appear to work, replaced with below
 nnoremap <Leader>ul :call UltiSnips_ListSnippets()<CR>
-nnoremap <Leader>ue :call UltiSnipsEdit()<CR>
+nnoremap <Leader>ue :call UltiSnipsEditDefaultSnippets()<CR>
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+function! UltiSnipsEditDefaultSnippets()
+  execute 'vsp ~/dotvim/bundle/UltiSnips/UltiSnips/' . &ft . '.snippets'
+endfunction
+
+" edit my ultisnips
+nnoremap <Leader>se :UltiSnipsEdit()<CR>
 
 " nerd tree toggle
 nnoremap <Leader>nt :NERDTreeToggle<CR>
@@ -197,6 +202,9 @@ nnoremap <Leader>nf :NERDTreeFind<CR>
 " -----------------------------------------------------------------------------
 " General setup
 " -----------------------------------------------------------------------------
+
+" always vsplit with new window on right
+set splitright
 
 """ Color setup """
 set background=dark
