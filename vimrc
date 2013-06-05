@@ -75,7 +75,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'scottymoon/vim-twilight'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'godlygeek/csapprox'
-Bundle 'mattsa/vim-eddie'
+" Bundle 'mattsa/vim-eddie'
 Bundle 'tomasr/molokai'
 Bundle 'therubymug/vim-pyte'
 Bundle 'vim-scripts/vydark'
@@ -84,6 +84,8 @@ Bundle 'vexxor/zenburn.vim'
 
 " Syntax
 Bundle 'scrooloose/syntastic'
+" Bundle 'groenewege/vim-less'
+Bundle 'lunaru/vim-less'
 
 """ Language Specific """
 
@@ -109,7 +111,8 @@ Bundle 'javacomplete'
 " Bundle 'vim-scripts/Better-CSS-Syntax-for-Vim'
 
 " Velocity
-Bundle 'velocity.vim'
+" Bundle 'velocity.vim'
+Bundle "lepture/vim-velocity"
 
 " Lisp
 " Bundle 'vim-scripts/slimv.vim'
@@ -174,7 +177,7 @@ nnoremap <Leader>b :CtrlPBuffer<CR>
 
 " status line
 " always show status bar
-set laststatus=1
+set laststatus=2
 
 " ultisnips                                 
 let g:UltiSnipsEditSplit="vertical"
@@ -441,3 +444,26 @@ endfunction
 
 nnoremap <Leader>fz :call ToggleFontScale()<CR>
 
+map ; :
+autocmd BufWritePost *.vm silent !$TRTOP/scripts/tweak flush velocity >/dev/null 2>&1 &
+autocmd BufRead,BufNewFile *.less set filetype=less
+au BufNewFile,BufRead *.vm,*.html,*.htm,*.shtml,*.stm set ft=velocity
+autocmd FileType *.vm set tabstop=2|set shiftwidth=2|set expandtab
+autocmd BufNewFile,BufRead *.vm set tabstop=2|set shiftwidth=2|set expandtab
+
+" ctrl p ignore
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_working_path_mode = ''
+let g:ctrlp_by_filename = 1
+ let g:ctrlp_clear_cache_on_exit = 0
+ let g:ctrlp_max_files = 1000000
+
+" http://stackoverflow.com/questions/13380643/vim-use-as-default-register-only-for-yank-command
+nnoremap <expr> y (v:register ==# '"' ? '"+' : '') . 'y'
+nnoremap <expr> yy (v:register ==# '"' ? '"+' : '') . 'yy'
+nnoremap <expr> Y (v:register ==# '"' ? '"+' : '') . 'Y'
+xnoremap <expr> y (v:register ==# '"' ? '"+' : '') . 'y'
+xnoremap <expr> Y (v:register ==# '"' ? '"+' : '') . 'Y'
