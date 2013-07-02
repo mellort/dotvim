@@ -71,16 +71,21 @@ Bundle 'vim-scripts/ZoomWin'
 set rtp+=~/.vim/bundle/mpage/
 
 " Colors
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'scottymoon/vim-twilight'
+"" Dark
+Bundle 'matthewtodd/vim-twilight'
 Bundle 'nanotech/jellybeans.vim'
-Bundle 'godlygeek/csapprox'
-" Bundle 'mattsa/vim-eddie'
 Bundle 'tomasr/molokai'
-Bundle 'therubymug/vim-pyte'
+Bundle 'godlygeek/csapprox'
 Bundle 'vim-scripts/vydark'
-Bundle 'Cleanroom'
 Bundle 'vexxor/zenburn.vim'
+Bundle 'cstrahan/grb256'
+Bundle 'zeis/vim-kolor'
+
+
+"" Light
+Bundle 'endel/vim-github-colorscheme'
+Bundle 'therubymug/vim-pyte'
+Bundle 'Cleanroom'
 
 " Syntax
 Bundle 'scrooloose/syntastic'
@@ -148,7 +153,7 @@ let g:pymode_breakpoint_key = '<Leader>pb'
 
 " makegreen
 nnoremap <Leader>t :call MakeGreen('%')<CR>
-nnoremap <Leader>at :call MakeGreen('.')<CR>
+" nnoremap <Leader>at :call MakeGreen('.')<CR>
 
 " Easy access to Align
 nnoremap <Leader>= :Align 
@@ -158,8 +163,8 @@ vnoremap <Leader>= :Align
 nnoremap <Leader>z :ZoomWin<CR>
 
 " Run Ack fast
-nnoremap <Leader>a :Ack<Space>
-nnoremap <Leader>la :LAck<Space>
+"nnoremap <Leader>a :Ack<Space>
+nnoremap <Leader>a :LAck<Space>
 
 " toggle tagbar
 nnoremap <Leader>tg :TagbarToggle<CR>
@@ -202,6 +207,10 @@ nnoremap <Leader>nf :NERDTreeFind<CR>
 " latex hw compile
 " nnoremap <silent> <Leader><Leader> :!pdflatex hw.tex &<CR>
 
+" ack isn't working right :/
+" http://thejacklawson.com/2011/12/vim-cant-open-errofile/index.html
+set shell=/bin/bash
+
 " -----------------------------------------------------------------------------
 " General setup
 " -----------------------------------------------------------------------------
@@ -211,7 +220,15 @@ set splitright
 
 """ Color setup """
 set background=dark
-colorscheme jellybeans
+" colorscheme jellybeans
+
+"" Randomly select colorscheme
+let schemes = 'twilight jellybeans molokai vydark zenburn grb256 kolor'
+let seconds = str2nr(strftime('%S'))
+
+execute 'colorscheme '.split(schemes)[seconds%8]
+" redraw
+
 
 """ Editing behavior """
 set showmode                             " always show what mode we're currently editing in
@@ -445,25 +462,26 @@ endfunction
 nnoremap <Leader>fz :call ToggleFontScale()<CR>
 
 map ; :
-autocmd BufWritePost *.vm silent !$TRTOP/scripts/tweak flush velocity >/dev/null 2>&1 &
-autocmd BufRead,BufNewFile *.less set filetype=less
-au BufNewFile,BufRead *.vm,*.html,*.htm,*.shtml,*.stm set ft=velocity
-autocmd FileType *.vm set tabstop=2|set shiftwidth=2|set expandtab
-autocmd BufNewFile,BufRead *.vm set tabstop=2|set shiftwidth=2|set expandtab
+
+" TripAdvisor work specific settings
+if hostname() == "tmellor-box"
+  autocmd BufWritePost *.vm silent !$TRTOP/scripts/tweak flush velocity >/dev/null 2>&1 &
+  autocmd BufWritePost *.less silent !make -C $TRTOP/site/css2/tablet >/dev/null 2>&1 &
+  autocmd BufRead,BufNewFile *.less set filetype=less
+  au BufNewFile,BufRead *.vm,*.html,*.htm,*.shtml,*.stm set ft=velocity
+  autocmd FileType *.vm set tabstop=2|set shiftwidth=2|set expandtab
+  autocmd BufNewFile,BufRead *.vm set tabstop=2|set shiftwidth=2|set expandtab
+endif
+
+autocmd filetype less setlocal equalprg=csstidy\ -\ --template=low\ --silent=true
+autocmd filetype css setlocal equalprg=csstidy\ -\ --template=low\ --silent=true
+
 
 " ctrl p ignore
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_working_path_mode = ''
 let g:ctrlp_by_filename = 1
- let g:ctrlp_clear_cache_on_exit = 0
- let g:ctrlp_max_files = 1000000
-
-" http://stackoverflow.com/questions/13380643/vim-use-as-default-register-only-for-yank-command
-nnoremap <expr> y (v:register ==# '"' ? '"+' : '') . 'y'
-nnoremap <expr> yy (v:register ==# '"' ? '"+' : '') . 'yy'
-nnoremap <expr> Y (v:register ==# '"' ? '"+' : '') . 'Y'
-xnoremap <expr> y (v:register ==# '"' ? '"+' : '') . 'y'
-xnoremap <expr> Y (v:register ==# '"' ? '"+' : '') . 'Y'
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_max_files = 1000000
