@@ -471,13 +471,13 @@ if hostname() == "tmellor-box"
   autocmd BufWritePost *.vm silent !$TRTOP/scripts/tweak flush velocity >/dev/null 2>&1 &
   " make velocity tags
   " autocmd BufWritePost *.vm silent !ctags -R --languages=velocity --velocity-kinds=m $TRTOP/site/velocity_redesign $TRTOP/site/velocity_redesign/{mobile,tablet,tablet/redesign} > /dev/null 2>&1 &
-  autocmd BufWritePost *.vm silent !cd $TRTOP && ctags -R -f velocity_tags $TRTOP/site/velocity_redesign /dev/null 2>&1 &
+  autocmd BufWritePost *.vm silent !cd $TRTOP && ctags -R -f velocity_tags $TRTOP/site/velocity_redesign > /dev/null 2>&1 &
   " make js tags
   " autocmd BufWritePost *.vm silent !ctags -R --languages=velocity --velocity-kinds=m $TRTOP/site/velocity_redesign $TRTOP/site/velocity_redesign/{mobile,tablet,tablet/redesign} > /dev/null 2>&1 &
   autocmd BufWritePost *.js silent !cd $TRTOP && ctags -R -f js_tags $TRTOP/site/js3/src > /dev/null 2>&1 &
 
   " less -> css conversion
-  autocmd BufWritePost *.less silent !make -C $TRTOP/site/css2/tablet >/dev/null 2>&1 &
+  autocmd BufWritePost *.less silent !make -C $TRTOP/site/css2/tablet > /dev/null 2>&1 &
 
   autocmd BufRead,BufNewFile *.less set filetype=less
   au BufNewFile,BufRead *.vm,*.html,*.htm,*.shtml,*.stm set ft=velocity
