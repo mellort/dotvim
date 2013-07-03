@@ -34,9 +34,9 @@ Bundle 'vim-scripts/L9'
 " UI improvements
 Bundle 'wycats/nerdtree'
 Bundle 'majutsushi/tagbar'
-" Bundle 'int3/vim-taglist-plus'
-" Bundle 'dickeytk/status.vim'
-set statusline=%f
+Bundle 'bling/vim-airline'
+set lazyredraw
+set ttimeoutlen=50
 
 " Utilities
 Bundle 'mileszs/ack.vim'
@@ -80,7 +80,7 @@ Bundle 'vim-scripts/vydark'
 Bundle 'vexxor/zenburn.vim'
 Bundle 'cstrahan/grb256'
 Bundle 'zeis/vim-kolor'
-
+Bundle 'chriskempson/vim-tomorrow-theme'
 
 "" Light
 Bundle 'endel/vim-github-colorscheme'
@@ -149,7 +149,7 @@ let g:pymode_syntax = 1
 " remote breakpoint shortcut
 let g:pymode_breakpoint = 1
 " Key for set/unset breakpoint
-let g:pymode_breakpoint_key = '<Leader>pb'
+" let g:pymode_breakpoint_key = '<Leader>pb'
 
 " makegreen
 nnoremap <Leader>t :call MakeGreen('%')<CR>
@@ -172,13 +172,15 @@ nnoremap <Leader>tg :TagbarToggle<CR>
 nnoremap <Leader>ct :silent! ctags -R --extra=+f
 
 " fuzzy funder
-nnoremap <Leader>ff :FufFileWithCurrentBufferDir<CR>
-nnoremap <Leader>fb :FufBuffer<CR>
-nnoremap <Leader>ft :FufTaggedFile<CR>
+" nnoremap <Leader>ff :FufFileWithCurrentBufferDir<CR>
+" nnoremap <Leader>fb :FufBuffer<CR>
+" nnoremap <Leader>ft :FufTaggedFile<CR>
+" nnoremap <Leader>fg :FufTag<CR>
+" nnoremap <Leader>fl :FufLine<CR>
 
 " ctrl p
 nnoremap <Leader>pb :CtrlPBuffer<CR>
-nnoremap <Leader>b :CtrlPBuffer<CR>
+nnoremap <Leader>ft :CtrlPTag<CR>
 
 " status line
 " always show status bar
@@ -223,7 +225,7 @@ set background=dark
 " colorscheme jellybeans
 
 "" Randomly select colorscheme
-let schemes = 'twilight jellybeans molokai vydark zenburn grb256 kolor'
+let schemes = 'twilight jellybeans molokai vydark zenburn grb256 kolor Tomorrow-Night'
 let seconds = str2nr(strftime('%S'))
 
 execute 'colorscheme '.split(schemes)[seconds%8]
@@ -465,13 +467,30 @@ map ; :
 
 " TripAdvisor work specific settings
 if hostname() == "tmellor-box"
+  " refresh velocity
   autocmd BufWritePost *.vm silent !$TRTOP/scripts/tweak flush velocity >/dev/null 2>&1 &
+  " make velocity tags
+  " autocmd BufWritePost *.vm silent !ctags -R --languages=velocity --velocity-kinds=m $TRTOP/site/velocity_redesign $TRTOP/site/velocity_redesign/{mobile,tablet,tablet/redesign} > /dev/null 2>&1 &
+  autocmd BufWritePost *.vm silent !cd $TRTOP && ctags -R -f velocity_tags $TRTOP/site/velocity_redesign /dev/null 2>&1 &
+  " make js tags
+  " autocmd BufWritePost *.vm silent !ctags -R --languages=velocity --velocity-kinds=m $TRTOP/site/velocity_redesign $TRTOP/site/velocity_redesign/{mobile,tablet,tablet/redesign} > /dev/null 2>&1 &
+  autocmd BufWritePost *.js silent !cd $TRTOP && ctags -R -f js_tags $TRTOP/site/js3/src > /dev/null 2>&1 &
+
+  " less -> css conversion
   autocmd BufWritePost *.less silent !make -C $TRTOP/site/css2/tablet >/dev/null 2>&1 &
+
   autocmd BufRead,BufNewFile *.less set filetype=less
   au BufNewFile,BufRead *.vm,*.html,*.htm,*.shtml,*.stm set ft=velocity
   autocmd FileType *.vm set tabstop=2|set shiftwidth=2|set expandtab
   autocmd BufNewFile,BufRead *.vm set tabstop=2|set shiftwidth=2|set expandtab
+
+  set tags+=tags,tags;$TRTOP
+  " set tags file to only load same ft
+  autocmd BufRead,BufNewFile *.js set tags+=js_tags,js_tags;$TRTOP
+  autocmd BufRead,BufNewFile *.vm set tags+=velocity_tags,velocity_tags;$TRTOP
+
 endif
+
 
 autocmd filetype less setlocal equalprg=csstidy\ -\ --template=low\ --silent=true
 autocmd filetype css setlocal equalprg=csstidy\ -\ --template=low\ --silent=true
