@@ -206,6 +206,7 @@ nnoremap <Leader>se :UltiSnipsEdit()<CR>
 nnoremap <Leader>nt :NERDTreeToggle<CR>
 nnoremap <Leader>nf :NERDTreeFind<CR>
 
+
 " latex hw compile
 " nnoremap <silent> <Leader><Leader> :!pdflatex hw.tex &<CR>
 
@@ -225,10 +226,10 @@ set background=dark
 " colorscheme jellybeans
 
 "" Randomly select colorscheme
-let schemes = 'twilight jellybeans molokai vydark zenburn grb256 kolor Tomorrow-Night'
+let schemes = 'jellybeans zenburn kolor Tomorrow-Night'
 let seconds = str2nr(strftime('%S'))
 
-execute 'colorscheme '.split(schemes)[seconds%8]
+execute 'colorscheme '.split(schemes)[seconds%4]
 " redraw
 
 
@@ -305,6 +306,10 @@ nnoremap ` '
 " Quickfix window with last search
 nnoremap <silent> <leader>/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
+" ctag navigation
+nnoremap <C-V><C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+
 """ Utility """
 
 " restore position in file
@@ -349,7 +354,6 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
-nnoremap <Leader>v <C-w>v<C-w>l
 
 " use semicolon for commands
 " http://vim.wikia.com/wiki/Map_semicolon_to_colon
