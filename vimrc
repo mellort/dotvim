@@ -81,6 +81,7 @@ Bundle 'vexxor/zenburn.vim'
 Bundle 'cstrahan/grb256'
 Bundle 'zeis/vim-kolor'
 Bundle 'chriskempson/vim-tomorrow-theme'
+Bundle 'jonathanfilip/vim-lucius'
 
 "" Light
 Bundle 'endel/vim-github-colorscheme'
@@ -200,7 +201,7 @@ function! UltiSnipsEditDefaultSnippets()
 endfunction
 
 " edit my ultisnips
-nnoremap <Leader>se :UltiSnipsEdit()<CR>
+nnoremap <Leader>se :UltiSnipsEdit<CR>
 
 " nerd tree toggle
 nnoremap <Leader>nt :NERDTreeToggle<CR>
@@ -222,14 +223,14 @@ set shell=/bin/bash
 set splitright
 
 """ Color setup """
-set background=dark
 " colorscheme jellybeans
 
 "" Randomly select colorscheme
-let schemes = 'jellybeans zenburn kolor Tomorrow-Night'
+let schemes = 'jellybeans zenburn kolor Tomorrow-Night lucius'
 let seconds = str2nr(strftime('%S'))
 
-execute 'colorscheme '.split(schemes)[seconds%4]
+execute 'colorscheme '.split(schemes)[seconds%5]
+set background=dark
 " redraw
 
 
