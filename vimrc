@@ -10,13 +10,13 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-filetype plugin indent on " required!
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " mandatory for some plugins
 set t_Co=256
+
 
 " let Vundle manage Vundle
 " required! 
@@ -54,7 +54,7 @@ Bundle 'scrooloose/nerdcommenter'
 " Code completion
 Bundle 'Raimondi/delimitMate'
 Bundle 'docunext/closetag.vim'
-Bundle 'vim-scripts/UltiSnips'
+Bundle 'SirVer/ultisnips'
 Bundle 'mattn/zencoding-vim'
 
 " Source Control
@@ -120,6 +120,8 @@ Bundle 'javacomplete'
 " Bundle 'velocity.vim'
 Bundle "lepture/vim-velocity"
 
+" Dust
+
 " Lisp
 " Bundle 'vim-scripts/slimv.vim'
 
@@ -130,10 +132,10 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-endwise'
 
-" Key for set/unset breakpoint
-let g:pymode_breakpoint_key = '<leader>b'
 " Coffeescript
 Bundle 'kchmck/vim-coffee-script'
+
+filetype plugin indent on " required!
 
 " -----------------------------------------------------------------------------
 " Plugin Setup / Shortcuts / Maps
@@ -489,7 +491,7 @@ if hostname() == "tmellor-box"
   autocmd FileType *.vm set tabstop=2|set shiftwidth=2|set expandtab
   autocmd BufNewFile,BufRead *.vm set tabstop=2|set shiftwidth=2|set expandtab
 
-  set tags+=tags,tags;$TRTOP
+  autocmd BufRead,BufNewFile *.java set tags+=tags,tags;$TRTOP
   " set tags file to only load same ft
   autocmd BufRead,BufNewFile *.js set tags+=js_tags,js_tags;$TRTOP
   autocmd BufRead,BufNewFile *.vm set tags+=velocity_tags,velocity_tags;$TRTOP
