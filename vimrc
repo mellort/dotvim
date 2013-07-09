@@ -45,6 +45,13 @@ Bundle 'vim-scripts/FuzzyFinder'
 Bundle 'kien/ctrlp.vim'
 Bundle 'chrisbra/NrrwRgn'
 
+
+" should i move to unite.vim
+Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimproc'
+
+" nnoremap <C-p> :Unite file_rec/async<cr>
+
 " Manipulation
 Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'tpope/vim-surround'
@@ -121,6 +128,7 @@ Bundle 'javacomplete'
 Bundle "lepture/vim-velocity"
 
 " Dust
+Bundle "jimmyhchan/dustjs.vim"
 
 " Lisp
 " Bundle 'vim-scripts/slimv.vim'
