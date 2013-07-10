@@ -219,6 +219,9 @@ set shell=/bin/bash
 " General setup
 " -----------------------------------------------------------------------------
 
+" special char for vertical split 
+set fillchars=vert:│ 
+
 " always vsplit with new window on right
 set splitright
 
