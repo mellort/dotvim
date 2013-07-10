@@ -64,7 +64,6 @@ Bundle 'kien/ctrlp.vim'
 
 Bundle 'chrisbra/NrrwRgn'
     nnoremap <Leader>nr :NR<CR>
-    vnoremap <Leader>nr :NR<CR>
 
 " should i move to unite.vim ??
 " Bundle 'Shougo/unite.vim'
