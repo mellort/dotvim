@@ -107,6 +107,7 @@ Bundle 'vim-scripts/ZoomWin'
     nnoremap <Leader>zw :ZoomWin<CR>
 
 " Bundle 'mutewinter/LustyJuggler'
+Bundle 'christoomey/vim-tmux-navigator'
 
 " Colors
 "" Dark
@@ -443,25 +444,71 @@ autocmd filetype css setlocal equalprg=csstidy\ -\ --template=low\ --silent=true
 
 " TripAdvisor work specific settings
 if hostname() == "tmellor-box"
+    """ Auto flush caches
     " refresh velocity
     autocmd BufWritePost *.vm silent !$TRTOP/scripts/tweak flush velocity >/dev/null 2>&1 &
+    " refresh dust
+    autocmd BufWritePost *.dust silent !$TRTOP/scripts/tweak flush dust >/dev/null 2>&1 &
+
+    """ Auto make ctags
     " make velocity tags
-    " autocmd BufWritePost *.vm silent !ctags -R --languages=velocity --velocity-kinds=m $TRTOP/site/velocity_redesign $TRTOP/site/velocity_redesign/{mobile,tablet,tablet/redesign} > /dev/null 2>&1 &
     autocmd BufWritePost *.vm silent !cd $TRTOP && ctags -R -f velocity_tags $TRTOP/site/velocity_redesign > /dev/null 2>&1 &
     " make js tags
-    " autocmd BufWritePost *.vm silent !ctags -R --languages=velocity --velocity-kinds=m $TRTOP/site/velocity_redesign $TRTOP/site/velocity_redesign/{mobile,tablet,tablet/redesign} > /dev/null 2>&1 &
     autocmd BufWritePost *.js silent !cd $TRTOP && ctags -R -f js_tags $TRTOP/site/js3/src > /dev/null 2>&1 &
+    " make less tags
+    autocmd BufWritePost *.less silent !cd $TRTOP && ctags -R -f less_tags $TRTOP/site/css2/mobile/base.less > /dev/null 2>&1 &
+    " make java tags
+    autocmd BufWritePost *.java silent !cd $TRTOP && make tags > /dev/null 2>&1 &
 
-    " less -> css conversion
+    """ Auto convert less -> css
+    " if you don't have css_compress and css_concat tweaked off
+    " this will take longer than necessary
     autocmd BufWritePost *.less silent !make -C $TRTOP/site/css2/tablet > /dev/null 2>&1 &
 
+    """ Syntax recognition and code formatting 
+    " make sure less is recognized properly
     autocmd BufRead,BufNewFile *.less set filetype=less
+    " recognize velocity
     au BufNewFile,BufRead *.vm,*.html,*.htm,*.shtml,*.stm set ft=velocity
+    " set velocity tab settings 
     autocmd FileType *.vm set tabstop=2|set shiftwidth=2|set expandtab
     autocmd BufNewFile,BufRead *.vm set tabstop=2|set shiftwidth=2|set expandtab
 
-    " set tags file to only load same ft
+    """ LOAD TAGS
+    """ we can speed up tag search by only loading tags
+    """ for the relevant files, ie JS tags when you're editing
+    """ js files or in a js directory.
+    """ Note: you might want to modify this to load js/css/vm tags
+    """ at the same time.
+
+    " the `set tags+=FILE,FILE;DIR` syntax
+    " searches for tags in FILE, and also searches
+    " for tags in FILE in parent directories up to DIR
+    let s:current_file = expand('%:p')
+
+    " java tags
     autocmd BufRead,BufNewFile *.java set tags+=tags,tags;$TRTOP
+    if s:current_file =~ '/tr/'
+      set tags+=tags,tags;$TRTOP
+    endif
+
+    " js tags
     autocmd BufRead,BufNewFile *.js set tags+=js_tags,js_tags;$TRTOP
+    if s:current_file =~ '/js3/'
+      set tags+=js_tags,js_tags;$TRTOP
+    endif
+
+    " velocity tags
     autocmd BufRead,BufNewFile *.vm set tags+=velocity_tags,velocity_tags;$TRTOP
+    if s:current_file =~ '/velocity_redesign/'
+      set tags+=tags,tags;$TRTOP
+    endif
+        
+    " less tags
+    autocmd BufRead,BufNewFile *.less set tags+=less_tags,less_tags;$TRTOP
+    if s:current_file =~ '/css2/'
+      set tags+=less_tags,less_tags;$TRTOP
+    endif
+
+    nnoremap <Leader>mb :sp $TRTOP/site/css2/mobile/base.less<CR> 
 endif
