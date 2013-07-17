@@ -37,13 +37,20 @@ Bundle 'majutsushi/tagbar'
 Bundle 'bling/vim-airline'
     set lazyredraw
     set ttimeoutlen=50
+    " Remove arrow separators, only really look nice with powerline font
+    " anyway
+    let g:airline_left_sep = ''
+    let g:airline_right_sep = ''
 
 " Utilities
 Bundle 'mileszs/ack.vim'
-    nnoremap <Leader>a :LAck<Space>
+    " nnoremap <Leader>a :LAck<Space>
     " ack isn't working right :/
     " http://thejacklawson.com/2011/12/vim-cant-open-errofile/index.html
     set shell=/bin/bash
+
+Bundle 'rking/ag.vim'
+    nnoremap <Leader>a :LAg<Space>
 
 Bundle 'tsaleh/vim-align'
     " Easy access to Align
@@ -55,6 +62,7 @@ Bundle 'vim-scripts/FuzzyFinder'
 Bundle 'kien/ctrlp.vim'
     nnoremap <Leader>pb :CtrlPBuffer<CR>
     nnoremap <Leader>ft :CtrlPTag<CR>
+    nnoremap <Leader>fi :CtrlPBufTag<CR>
     set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
     let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
     let g:ctrlp_working_path_mode = ''
@@ -466,13 +474,10 @@ if hostname() == "tmellor-box"
     autocmd BufWritePost *.less silent !make -C $TRTOP/site/css2/tablet > /dev/null 2>&1 &
 
     """ Syntax recognition and code formatting 
-    " make sure less is recognized properly
-    autocmd BufRead,BufNewFile *.less set filetype=less
-    " recognize velocity
-    au BufNewFile,BufRead *.vm,*.html,*.htm,*.shtml,*.stm set ft=velocity
-    " set velocity tab settings 
-    autocmd FileType *.vm set tabstop=2|set shiftwidth=2|set expandtab
-    autocmd BufNewFile,BufRead *.vm set tabstop=2|set shiftwidth=2|set expandtab
+    autocmd FileType *.vm set tabstop=2 | set shiftwidth=2 | set expandtab
+    autocmd FileType *.js set tabstop=2 | set shiftwidth=2 | set expandtab
+    autocmd FileType *.java set tabstop=4 | set shiftwidth=4 | set expandtab
+    autocmd FileType *.css,*.less set tabstop=2 | set shiftwidth=2 | set expandtab
 
     """ LOAD TAGS
     """ we can speed up tag search by only loading tags
@@ -485,28 +490,29 @@ if hostname() == "tmellor-box"
     " searches for tags in FILE, and also searches
     " for tags in FILE in parent directories up to DIR
     let s:current_file = expand('%:p')
+    let s:current_dir = getcwd()
 
     " java tags
     autocmd BufRead,BufNewFile *.java set tags+=tags,tags;$TRTOP
-    if s:current_file =~ '/tr/'
+    if s:current_file =~ '/trsrc.*/tr/' || s:current_dir =~ '/trsrc.*/tr$'
       set tags+=tags,tags;$TRTOP
     endif
 
     " js tags
     autocmd BufRead,BufNewFile *.js set tags+=js_tags,js_tags;$TRTOP
-    if s:current_file =~ '/js3/'
+    if s:current_file =~ '/trsrc.*/js3/' || s:current_dir =~ '/trsrc.*/js3'
       set tags+=js_tags,js_tags;$TRTOP
     endif
 
     " velocity tags
     autocmd BufRead,BufNewFile *.vm set tags+=velocity_tags,velocity_tags;$TRTOP
-    if s:current_file =~ '/velocity_redesign/'
+    if s:current_file =~ '/trsrc.*/velocity_redesign/' || s:current_dir =~ '/trsrc.*/velocity_redesign'
       set tags+=tags,tags;$TRTOP
     endif
         
     " less tags
     autocmd BufRead,BufNewFile *.less set tags+=less_tags,less_tags;$TRTOP
-    if s:current_file =~ '/css2/'
+    if s:current_file =~ '/trsrc.*/css2/' || s:current_dir =~ '/trsrc.*/css2'
       set tags+=less_tags,less_tags;$TRTOP
     endif
 
