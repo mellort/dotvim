@@ -23,6 +23,7 @@ Bundle 'gmarik/vundle'
 " Plugin Bundles
 " -----------------------------------------------------------------------------
 
+
 " Library
 Bundle 'vim-scripts/L9'
 
@@ -61,6 +62,11 @@ Bundle 'kien/ctrlp.vim'
     let g:ctrlp_by_filename = 1
     let g:ctrlp_clear_cache_on_exit = 0
     let g:ctrlp_max_files = 1000000
+
+Bundle 'mellort/ctrlp-command'
+    let g:ctrlp_extensions = ['command']
+    nnoremap <Leader>fc :CtrlPCommand<CR>
+
 
 Bundle 'chrisbra/NrrwRgn'
     nnoremap <Leader>nr :NR<CR>
