@@ -50,7 +50,7 @@ Bundle 'mileszs/ack.vim'
     set shell=/bin/bash
 
 Bundle 'rking/ag.vim'
-    nnoremap <Leader>a :LAg<Space>
+    nnoremap <Leader>a :LAg -t<Space>
 
 Bundle 'tsaleh/vim-align'
     " Easy access to Align
@@ -59,10 +59,15 @@ Bundle 'tsaleh/vim-align'
 
 Bundle 'vim-scripts/FuzzyFinder'
 
-Bundle 'kien/ctrlp.vim'
+Bundle 'mellort/ctrlp.vim'
     nnoremap <Leader>pb :CtrlPBuffer<CR>
     nnoremap <Leader>ft :CtrlPTag<CR>
     nnoremap <Leader>fi :CtrlPBufTag<CR>
+    nnoremap <Leader>fl :CtrlPLine<CR>
+    nnoremap <Leader>fc :CtrlPChange<CR>
+    nnoremap <Leader>fu :CtrlPMRUFiles<CR>
+    nnoremap <Leader>fd :CtrlPBookmarkDir<CR>
+
     set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
     let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
     let g:ctrlp_working_path_mode = ''
@@ -517,4 +522,40 @@ if hostname() == "tmellor-box"
     endif
 
     nnoremap <Leader>mb :sp $TRTOP/site/css2/mobile/base.less<CR> 
+
+
+    function! AddTABookMarksToCtrlP()
+      call ctrlp#bookmarkdir#add($TRTOP, "trtop")
+
+      call ctrlp#bookmarkdir#add($TRTOP . "/tr", "tr java")
+
+      call ctrlp#bookmarkdir#add($TRTOP . "/site/css2", "tr css")
+      call ctrlp#bookmarkdir#add($TRTOP . "/site/css2/mobile", "tr css mobile")
+      call ctrlp#bookmarkdir#add($TRTOP . "/site/css2/tablet", "tr css tablet")
+      call ctrlp#bookmarkdir#add($TRTOP . "/site/css2/tablet/svg", "tr css tablet svg sprite")
+      call ctrlp#bookmarkdir#add($TRTOP . "/site/css2/tablet/redesign", "tr css tablet rx")
+      call ctrlp#bookmarkdir#add($TRTOP . "/site/css2/tablet/redesign", "tr css tablet rx")
+
+      call ctrlp#bookmarkdir#add($TRTOP . "/site/js3/src", "tr js")
+      call ctrlp#bookmarkdir#add($TRTOP . "/site/js3/src/mobile", "tr js mobile")
+      call ctrlp#bookmarkdir#add($TRTOP . "/site/js3/src/tablet", "tr js tablet")
+      call ctrlp#bookmarkdir#add($TRTOP . "/site/js3/src/tablet/redesign", "tr js tablet rx")
+
+      call ctrlp#bookmarkdir#add($TRTOP . "/site/velocity_redesign", "tr vm")
+      call ctrlp#bookmarkdir#add($TRTOP . "/site/velocity_redesign/common", "tr vm common")
+      call ctrlp#bookmarkdir#add($TRTOP . "/site/velocity_redesign/mobile", "tr vm mobile")
+      call ctrlp#bookmarkdir#add($TRTOP . "/site/velocity_redesign/tablet", "tr vm tablet")
+      call ctrlp#bookmarkdir#add($TRTOP .  "/site/velocity_redesign/tablet/redesign", "tr vm tablet rx")
+
+      call ctrlp#bookmarkdir#add($TRTOP .  "/site/dust/src", "tr dust")
+      call ctrlp#bookmarkdir#add($TRTOP .  "/site/dust/src/modules", "tr dust modules")
+      call ctrlp#bookmarkdir#add($TRTOP .  "/site/dust/src/tablet", "tr dust tablet")
+
+      call ctrlp#bookmarkdir#add($TRTOP .  "/site/svg", "tr svg")
+      call ctrlp#bookmarkdir#add($TRTOP .  "/site/svg", "tr svg")
+      call ctrlp#bookmarkdir#add($TRTOP .  "/site/svg/mobile", "tr svg mobile")
+      call ctrlp#bookmarkdir#add($TRTOP .  "/site/svg/tablet", "tr svg tablet")
+
+      call ctrlp#bookmarkdir#add($TRTOP .  "/scripts/api/python", "tr api tests")
+    endfunction
 endif
