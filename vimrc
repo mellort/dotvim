@@ -38,6 +38,8 @@ Bundle 'majutsushi/tagbar'
 Bundle 'bling/vim-airline'
     set lazyredraw
     set ttimeoutlen=50
+    let g:airline_left_sep = ""
+    let g:airline_right_sep = ""
 
 " Utilities
 Bundle 'mileszs/ack.vim'
