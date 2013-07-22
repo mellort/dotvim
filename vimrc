@@ -13,6 +13,7 @@ call vundle#rc()
 
 " mandatory for some plugins
 set t_Co=256
+set t_ut=
 syntax enable
 
 
@@ -75,9 +76,9 @@ Bundle 'chrisbra/NrrwRgn'
     nnoremap <Leader>nr :NR<CR>
 
 " should i move to unite.vim ??
-" Bundle 'Shougo/unite.vim'
-" Bundle 'Shougo/vimproc'
-" nnoremap <C-p> :Unite file_rec/async<cr>
+Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimproc'
+  " nnoremap <C-p> :Unite file_rec/async<cr>
 
 " Manipulation
 Bundle 'michaeljsmith/vim-indent-object'
