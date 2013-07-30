@@ -76,9 +76,38 @@ Bundle 'chrisbra/NrrwRgn'
     nnoremap <Leader>nr :NR<CR>
 
 " should i move to unite.vim ??
-Bundle 'Shougo/unite.vim'
+" will use this to setup in case i want to switch later
 Bundle 'Shougo/vimproc'
-  " nnoremap <C-p> :Unite file_rec/async<cr>
+Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/unite-help'
+    call unite#filters#matcher_default#use(['matcher_fuzzy'])
+    call unite#filters#sorter_default#use(['sorter_rank'])
+
+    if executable('ack-grep')
+        let g:unite_source_grep_command = 'ack-grep'
+        let g:unite_source_grep_default_opts = '--no-heading --no-color -w'
+    endif
+
+
+    " Search through Unite sources themselves
+    nnoremap <Leader>fs :Unite -start-insert -buffer-name=sources source<cr>
+
+    " find file
+    " nnoremap <Leader>ff :Unite -start-insert -buffer-name=files file_rec/async<cr>
+    " find line in file
+    " nnoremap <Leader>fl :Unite -start-insert -buffer-name=line line<cr>
+
+    " Custom Unite settings
+    autocmd FileType unite call s:unite_settings()
+    function! s:unite_settings()
+        nmap <buffer> <ESC> <Plug>(unite_exit)
+        imap <buffer> <C-a> <Plug>(unite_choose_action)
+        nmap <buffer> <C-a> <Plug>(unite_choose_action)
+        imap <buffer> <C-j> <Esc><Plug>(unite_loop_cursor_down)
+    endfunction
+
+
+
 
 " Manipulation
 Bundle 'michaeljsmith/vim-indent-object'
