@@ -46,6 +46,7 @@ Bundle 'bling/vim-airline'
     let g:airline_right_sep = ''
 
 " Utilities
+Bundle "sjl/vitality.vim"
 Bundle 'mileszs/ack.vim'
     " nnoremap <Leader>a :LAck<Space>
     " ack isn't working right :/
@@ -62,7 +63,7 @@ Bundle 'tsaleh/vim-align'
 
 Bundle 'vim-scripts/FuzzyFinder'
 
-Bundle 'mellort/ctrlp.vim'
+Bundle 'kien/ctrlp.vim'
     nnoremap <Leader>pb :CtrlPBuffer<CR>
     nnoremap <Leader>ft :CtrlPTag<CR>
     nnoremap <Leader>fi :CtrlPBufTag<CR>
@@ -77,10 +78,12 @@ Bundle 'mellort/ctrlp.vim'
     let g:ctrlp_by_filename = 1
     let g:ctrlp_clear_cache_on_exit = 0
     let g:ctrlp_max_files = 1000000
+    Bundle 'tacahiroy/ctrlp-funky'
+    nnoremap <Leader>fk :CtrlPFunky<CR>
 
-Bundle 'mellort/ctrlp-command'
-    let g:ctrlp_extensions = ['command']
-    nnoremap <Leader>fc :CtrlPCommand<CR>
+" Bundle 'mellort/ctrlp-command'
+"     let g:ctrlp_extensions = ['command']
+"     nnoremap <Leader>fc :CtrlPCommand<CR>
 
 
 Bundle 'chrisbra/NrrwRgn'
