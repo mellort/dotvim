@@ -14,7 +14,6 @@ call vundle#rc()
 " mandatory for some plugins
 set t_Co=256
 set t_ut=
-syntax enable
 
 
 " let Vundle manage Vundle
@@ -420,7 +419,7 @@ autocmd Filetype javascript set omnifunc=javascriptcomplete#CompleteJS
 " Language specific settings
 " -----------------------------------------------------------------------------
 
-autocmd FileType python compiler nose
+" autocmd FileType python compiler nose
 autocmd FileType ruby compiler rubyunit
 
 " 2 spaces for tab in vim script
@@ -432,8 +431,10 @@ autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 " 2 spaces for tab in js
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
-" Set velocity syntax (redundant but necessary?)
+" auto set ft in case in doesnt get picked up
 autocmd BufRead,BufNewFile *.vm  setfiletype velocity
+autocmd BufRead,BufNewFile *.less  setfiletype less
+autocmd BufRead,BufNewFile *.dust  setfiletype html
 
 " -----------------------------------------------------------------------------
 " Custom magic goes here
@@ -599,3 +600,5 @@ if hostname() == "tmellor-box"
       call ctrlp#bookmarkdir#add($TRTOP .  "/scripts/api/python", "tr api tests")
     endfunction
 endif
+
+syntax enable
